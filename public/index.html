@@ -1,0 +1,770 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>PRIME LEADER AI TECHNICIAN</title>
+
+<style>
+*{box-sizing:border-box}
+
+:root{
+--bg:#070707;
+--panel:#0e0e10;
+--panel2:#131316;
+--red:#e5092f;
+--red2:#ff3152;
+--text:#f5f5f5;
+--muted:#999;
+--border:#252529;
+}
+
+body{
+margin:0;
+background:
+radial-gradient(circle at 50% -10%,rgba(229,9,47,.18),transparent 35%),
+linear-gradient(180deg,#080808,#030303);
+color:var(--text);
+font-family:Arial,Helvetica,sans-serif;
+min-height:100vh;
+}
+
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.015) 50%,transparent 100%);
+}
+
+header{
+height:76px;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 6%;
+background:rgba(7,7,7,.88);
+backdrop-filter:blur(15px);
+position:sticky;
+top:0;
+z-index:10;
+}
+
+.brand{
+display:flex;
+align-items:center;
+gap:12px;
+}
+
+.logo{
+width:45px;
+height:45px;
+display:grid;
+place-items:center;
+border:1px solid var(--red);
+background:#100307;
+color:#fff;
+font-weight:900;
+font-size:17px;
+box-shadow:0 0 25px rgba(229,9,47,.18);
+}
+
+.brand strong{
+display:block;
+font-size:15px;
+letter-spacing:2px;
+}
+
+.brand small{
+display:block;
+color:var(--red2);
+font-size:10px;
+letter-spacing:3px;
+margin-top:4px;
+}
+
+.online{
+font-size:10px;
+letter-spacing:2px;
+color:#65e68a;
+}
+
+main{
+width:min(1180px,92%);
+margin:auto;
+padding:65px 0 50px;
+}
+
+.hero{
+max-width:850px;
+margin:0 auto 42px;
+text-align:center;
+}
+
+.hero label{
+color:var(--red2);
+font-size:11px;
+font-weight:bold;
+letter-spacing:3px;
+}
+
+.hero h1{
+font-size:clamp(42px,7vw,78px);
+line-height:.98;
+margin:18px 0;
+letter-spacing:-3px;
+}
+
+.hero h1 span{
+color:var(--red2);
+}
+
+.hero p{
+max-width:690px;
+margin:auto;
+color:#aaa;
+font-size:15px;
+line-height:1.7;
+}
+
+.chips{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:9px;
+margin-top:27px;
+}
+
+.chips button{
+border:1px solid var(--border);
+background:#101012;
+color:#ccc;
+padding:10px 14px;
+border-radius:6px;
+cursor:pointer;
+font-size:10px;
+font-weight:bold;
+letter-spacing:1px;
+transition:.2s;
+}
+
+.chips button:hover{
+border-color:var(--red);
+color:#fff;
+transform:translateY(-2px);
+}
+
+.layout{
+display:grid;
+grid-template-columns:260px 1fr;
+gap:18px;
+}
+
+aside,.chat{
+background:rgba(14,14,16,.92);
+border:1px solid var(--border);
+border-radius:12px;
+overflow:hidden;
+box-shadow:0 20px 70px rgba(0,0,0,.35);
+}
+
+aside{
+padding:22px;
+height:max-content;
+}
+
+aside h3{
+margin:0 0 18px;
+font-size:12px;
+letter-spacing:2px;
+}
+
+aside h3 span{
+display:block;
+color:#777;
+font-size:9px;
+letter-spacing:1px;
+margin-top:5px;
+font-weight:normal;
+}
+
+input{
+width:100%;
+height:43px;
+margin-bottom:10px;
+background:#09090a;
+border:1px solid var(--border);
+border-radius:6px;
+padding:0 12px;
+color:#fff;
+outline:none;
+}
+
+input:focus{
+border-color:var(--red);
+}
+
+.clear{
+width:100%;
+height:40px;
+margin-top:4px;
+background:transparent;
+border:1px solid #333;
+color:#999;
+border-radius:6px;
+cursor:pointer;
+font-size:10px;
+font-weight:bold;
+letter-spacing:1px;
+}
+
+.clear:hover{
+border-color:var(--red);
+color:#fff;
+}
+
+.chat{
+min-height:590px;
+display:flex;
+flex-direction:column;
+}
+
+.chatbar{
+height:62px;
+padding:0 20px;
+border-bottom:1px solid var(--border);
+display:flex;
+align-items:center;
+justify-content:space-between;
+}
+
+.chatbar b{
+font-size:11px;
+letter-spacing:2px;
+}
+
+.chatbar span{
+font-size:9px;
+letter-spacing:1px;
+color:#777;
+}
+
+.msgs{
+flex:1;
+padding:22px;
+overflow-y:auto;
+min-height:390px;
+max-height:500px;
+}
+
+.message{
+display:flex;
+gap:12px;
+margin-bottom:18px;
+}
+
+.avatar{
+width:34px;
+height:34px;
+min-width:34px;
+display:grid;
+place-items:center;
+border:1px solid var(--red);
+background:#120307;
+color:#fff;
+font-size:10px;
+font-weight:bold;
+}
+
+.message.user .avatar{
+border-color:#444;
+background:#171719;
+}
+
+.bubble{
+max-width:90%;
+padding:15px 17px;
+border:1px solid var(--border);
+background:#111113;
+border-radius:7px;
+font-size:13px;
+line-height:1.65;
+}
+
+.message.user{
+justify-content:flex-end;
+}
+
+.message.user .bubble{
+background:#18090d;
+border-color:#4a1722;
+}
+
+.bubble b{
+display:block;
+color:#fff;
+margin-bottom:7px;
+font-size:11px;
+letter-spacing:1px;
+}
+
+.bubble h4{
+color:var(--red2);
+font-size:10px;
+letter-spacing:1.5px;
+margin:17px 0 8px;
+}
+
+.bubble ol,.bubble ul{
+margin:7px 0;
+padding-left:22px;
+}
+
+.bubble li{
+margin:6px 0;
+}
+
+.warning{
+margin-top:15px;
+padding:10px;
+border-left:2px solid var(--red);
+background:#19090d;
+color:#bbb;
+font-size:11px;
+}
+
+.profile{
+display:flex;
+flex-wrap:wrap;
+gap:7px;
+margin:12px 0;
+}
+
+.profile span{
+font-size:9px;
+background:#09090a;
+border:1px solid var(--border);
+padding:6px 8px;
+color:#aaa;
+}
+
+.composer{
+border-top:1px solid var(--border);
+padding:15px;
+display:flex;
+gap:10px;
+background:#0a0a0b;
+}
+
+textarea{
+flex:1;
+resize:none;
+min-height:46px;
+max-height:120px;
+background:#111113;
+border:1px solid var(--border);
+border-radius:7px;
+padding:14px;
+color:#fff;
+font-family:inherit;
+outline:none;
+}
+
+textarea:focus{
+border-color:var(--red);
+}
+
+#send{
+width:135px;
+border:0;
+border-radius:7px;
+background:linear-gradient(135deg,var(--red),#9e001d);
+color:white;
+font-weight:900;
+font-size:10px;
+letter-spacing:1px;
+cursor:pointer;
+}
+
+#send:hover{
+filter:brightness(1.15);
+}
+
+#send:disabled{
+opacity:.55;
+cursor:not-allowed;
+}
+
+footer{
+text-align:center;
+padding:16px;
+border-top:1px solid var(--border);
+color:#555;
+font-size:9px;
+line-height:1.7;
+letter-spacing:.5px;
+}
+
+@media(max-width:800px){
+header{padding:0 4%}
+main{width:94%;padding-top:40px}
+.layout{grid-template-columns:1fr}
+aside{order:2}
+.chat{order:1}
+.hero h1{letter-spacing:-2px}
+.chatbar span{display:none}
+}
+
+@media(max-width:520px){
+.hero h1{font-size:43px}
+.composer{flex-direction:column}
+#send{width:100%;height:44px}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<div class="brand">
+<div class="logo">PL</div>
+<div>
+<strong>PRIME LEADER</strong>
+<small>AI TECHNICIAN</small>
+</div>
+</div>
+
+<div class="online">● ONLINE • V2</div>
+</header>
+
+<main>
+
+<section class="hero">
+
+<label>AI PC DIAGNOSTICS • V2</label>
+
+<h1>
+What's wrong with<br>
+<span>your PC?</span>
+</h1>
+
+<p>
+Describe your PC problem in
+<b>සිංහල, English, or Singlish.</b>
+PRIME LEADER AI TECHNICIAN will analyze
+the symptoms and guide you step-by-step.
+</p>
+
+<div class="chips">
+
+<button data-p="mage pc eka slow wenawa">PC SLOW</button>
+
+<button data-p="game eka gahaddi FPS drop wenawa">FPS DROP</button>
+
+<button data-p="Windows blue screen ekak enawa">BSOD</button>
+
+<button data-p="wifi connected but internet na">INTERNET</button>
+
+<button data-p="game eka crash wenawa">GAME CRASH</button>
+
+</div>
+
+</section>
+
+<section class="layout">
+
+<aside>
+
+<h3>
+PC PROFILE
+<span>OPTIONAL</span>
+</h3>
+
+<input id="cpu" placeholder="CPU">
+
+<input id="gpu" placeholder="GPU">
+
+<input id="ram" placeholder="RAM">
+
+<input id="win" placeholder="Windows">
+
+<button id="clear" class="clear">
+CLEAR PROFILE
+</button>
+
+</aside>
+
+<section class="chat">
+
+<div class="chatbar">
+<b>TECHNICIAN CONSOLE</b>
+<span>LOCAL DIAGNOSTIC ENGINE</span>
+</div>
+
+<div id="msgs" class="msgs">
+
+<div class="message bot">
+
+<div class="avatar">PL</div>
+
+<div class="bubble">
+
+<b>PRIME LEADER AI TECHNICIAN</b>
+
+Welcome. Tell me what is happening with
+your PC. I will analyze the symptoms and
+guide you through the troubleshooting steps.
+
+<br><br>
+
+Example:
+"Game eka run karaddi FPS 60 idan 20 ta drop wenawa."
+
+</div>
+
+</div>
+
+</div>
+
+<form id="form" class="composer">
+
+<textarea
+id="input"
+rows="1"
+placeholder="Describe your PC problem..."
+></textarea>
+
+<button id="send" type="submit">
+DIAGNOSE →
+</button>
+
+</form>
+
+<footer>
+PRIME LEADER AI TECHNICIAN V2 •
+Local Diagnostic Engine •
+Sinhala / English / Singlish
+<br>
+AI guidance can be imperfect.
+Back up important data before major system changes.
+</footer>
+
+</section>
+
+</section>
+
+</main>
+
+<script>
+
+const $ = id => document.getElementById(id);
+
+const msgs = $("msgs");
+const input = $("input");
+const send = $("send");
+const form = $("form");
+
+function esc(value){
+
+return String(value || "")
+.replace(/&/g,"&amp;")
+.replace(/</g,"&lt;")
+.replace(/>/g,"&gt;")
+.replace(/"/g,"&quot;")
+.replace(/'/g,"&#039;");
+
+}
+
+function addMessage(type,html){
+
+const box=document.createElement("div");
+
+box.className="message "+type;
+
+box.innerHTML=
+'<div class="avatar">'+
+(type==="bot"?"PL":"YOU")+
+'</div>'+
+'<div class="bubble">'+html+'</div>';
+
+msgs.appendChild(box);
+
+msgs.scrollTop=msgs.scrollHeight;
+
+}
+
+function profile(){
+
+return {
+cpu:$("cpu").value.trim(),
+gpu:$("gpu").value.trim(),
+ram:$("ram").value.trim(),
+windows:$("win").value.trim()
+};
+
+}
+
+function markdownToHtml(text){
+    let html=esc(text || "");
+
+    html=html.replace(/^### (.*)$/gm,"<h4>$1</h4>");
+    html=html.replace(/^## (.*)$/gm,"<h4>$1</h4>");
+    html=html.replace(/^# (.*)$/gm,"<h4>$1</h4>");
+    html=html.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>");
+    html=html.replace(/`([^`]+)`/g,"<code>$1</code>");
+    html=html.replace(/^\s*[-•]\s+(.*)$/gm,"<li>$1</li>");
+    html=html.replace(/(?:<li>.*<\/li>\s*)+/gs,m=>"<ul>"+m+"</ul>");
+    html=html.replace(/\n/g,"<br>");
+    return html;
+}
+
+function render(data){
+
+    let html="";
+
+    html += "<b>"+esc(data.title || "PRIME LEADER AI TECHNICIAN")+"</b>";
+
+    /* Groq AI response */
+    if(data.markdown){
+        html += '<div class="ai-response">'+markdownToHtml(data.markdown)+'</div>';
+        addMessage("bot",html);
+        return;
+    }
+
+    /* Local diagnostic response */
+    if(data.summary){
+        html += "<div>"+esc(data.summary)+"</div>";
+    }
+
+    const pc=data.pcProfile;
+
+    if(pc && (pc.cpu||pc.gpu||pc.ram||pc.windows)){
+        html += '<div class="profile">';
+        if(pc.cpu) html += "<span>CPU: "+esc(pc.cpu)+"</span>";
+        if(pc.gpu) html += "<span>GPU: "+esc(pc.gpu)+"</span>";
+        if(pc.ram) html += "<span>RAM: "+esc(pc.ram)+"</span>";
+        if(pc.windows) html += "<span>Windows: "+esc(pc.windows)+"</span>";
+        html += "</div>";
+    }
+
+    if(Array.isArray(data.steps) && data.steps.length){
+        html += "<h4>RECOMMENDED STEPS</h4><ol>";
+        data.steps.forEach(step=>{ html += "<li>"+esc(step)+"</li>"; });
+        html += "</ol>";
+    }
+
+    if(Array.isArray(data.checks) && data.checks.length){
+        html += "<h4>INFORMATION NEEDED</h4><ul>";
+        data.checks.forEach(check=>{ html += "<li>"+esc(check)+"</li>"; });
+        html += "</ul>";
+    }
+
+    if(data.warning){
+        html += '<div class="warning">⚠ '+esc(data.warning)+"</div>";
+    }
+
+    if(!data.summary && !data.steps && !data.checks && !data.markdown){
+        html += "<div>Technician received an empty response.</div>";
+    }
+
+    addMessage("bot",html);
+}
+
+async function diagnose(text){
+
+addMessage("user","<div>"+esc(text)+"</div>");
+
+input.value="";
+input.style.height="auto";
+
+send.disabled=true;
+send.textContent="ANALYZING...";
+
+try{
+
+const response=await fetch(
+"/api/diagnose",
+{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+message:text,
+pc:profile()
+})
+}
+);
+
+const data=await response.json();
+
+if(!response.ok){
+
+throw new Error(
+data.error || "Server error"
+);
+
+}
+
+render(data);
+
+}catch(error){
+
+console.error(error);
+
+addMessage(
+"bot",
+"<b>TECHNICIAN CONNECTION ERROR</b>"+
+"<div>Backend එකෙන් response එකක් ගන්න බැරි වුණා.</div>"+
+"<div style='color:#777;margin-top:8px;font-size:11px'>"+
+esc(error.message)+
+"</div>"
+);
+
+}
+
+send.disabled=false;
+send.textContent="DIAGNOSE →";
+
+input.focus();
+
+}
+
+form.addEventListener("submit",function(e){
+
+e.preventDefault();
+
+const text=input.value.trim();
+
+if(text){
+diagnose(text);
+}
+
+});
+
+input.addEventListener("input",function(){
+
+input.style.height="auto";
+input.style.height=Math.min(input.scrollHeight,120)+"px";
+
+});
+
+/* Quick problem buttons */
+document.querySelectorAll(".chips button").forEach(button=>{
+    button.addEventListener("click",()=>{
+        input.value=button.dataset.p || "";
+        input.focus();
+        input.dispatchEvent(new Event("input"));
+    });
+});
+
+/* Clear PC profile */
+$("clear").addEventListener("click",()=>{
+    ["cpu","gpu","ram","win"].forEach(id=>$(id).value="");
+});
+
+</script>
+</body>
+</html>
